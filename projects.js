@@ -115,6 +115,7 @@ window.PROJECTS = [
   },
   {
     "id": "first-light",
+    "cover": ["#3b3a5a", "#b9797a", "#f8d68e", "#4b7059", "#3a2a26"],
     "title": "First Light",
     "blurb": "An orchestral project, still in the works. Nothing to play yet.",
     "audio": "audio/first-light/",

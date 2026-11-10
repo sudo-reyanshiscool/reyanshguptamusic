@@ -91,7 +91,7 @@
     const D = rng(5);
     drops = Array.from({ length: Math.round(W * 0.85) }, () => newDrop(D, true));
     splashes = [];
-    if (still) frame(0, true);
+    frame(0, true);                    // paint straight away so the scene is never blank
   }
 
   function newDrop(R, anywhere) {
@@ -148,6 +148,8 @@
   new IntersectionObserver(e => { visible = e[0].isIntersecting; }).observe(cv);
   build();
   if (!still) requestAnimationFrame(frame);
+  // where the cabin window sits, as a fraction of the scene (the enter animation zooms here)
+  window.scene = { build, focus: () => [(cabin.wx + 3.5) / W, (cabin.wy + 3) / H] };
 })();
 
 /* ============ rain sound (made in the browser, no file) ============ */
@@ -184,9 +186,38 @@
   const queue = [];          // every track on the page, in order
   let current = -1, dragging = false;
 
+  // a small pixel landscape for each album cover, in the album's own colours
+  function drawCover(cv, colors, seed) {
+    const S = 48, g = cv.getContext('2d'), c = colors || ['#27433f', '#54795d', '#f2c46d', '#6f9d5c', '#5b3f2c'];
+    cv.width = cv.height = S;
+    const R = () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296;
+    g.fillStyle = c[0]; g.fillRect(0, 0, S, S);
+    g.fillStyle = c[1]; g.fillRect(0, 16, S, S);
+    g.fillStyle = c[2]; g.fillRect(30, 8, 8, 12); g.fillRect(28, 10, 12, 8);
+    for (let x = 0, h = 18; x < S; x += 4) {
+      h = Math.max(10, Math.min(26, h + ((R() * 3 | 0) - 1) * 2));
+      g.fillStyle = c[3]; g.fillRect(x, S - h, 4, 2);
+      g.fillStyle = c[4]; g.fillRect(x, S - h + 2, 4, h);
+      g.fillStyle = 'rgba(0,0,0,.18)';
+      for (let y = S - h + 5; y < S; y += 4) g.fillRect(x + (R() * 3 | 0), y, 1, 1);
+    }
+  }
+
   const main = $('projects');
-  for (const p of window.PROJECTS) {
+  const shelf = document.createElement('section');
+  shelf.className = 'shelf'; shelf.id = 'albums';
+  shelf.innerHTML = '<h2>Albums</h2><div class="albums"></div>';
+  main.append(shelf);
+
+  for (const [n, p] of window.PROJECTS.entries()) {
     const total = p.tracks.reduce((a, t) => a + t.seconds, 0);
+    const card = document.createElement('a');
+    card.className = 'album'; card.href = '#' + p.id;
+    card.innerHTML = `<canvas aria-hidden="true"></canvas><strong>${p.title}</strong>
+      <span>${p.tracks.length ? `${p.tracks.length} tracks, ${Math.round(total / 60)} min` : 'In the works'}</span>`;
+    drawCover(card.firstChild, p.cover, n * 97 + 13);
+    shelf.lastChild.append(card);
+
     const sec = document.createElement('section');
     sec.className = 'project'; sec.id = p.id;
     if (!p.tracks.length) {            // a project with no audio yet
@@ -213,6 +244,33 @@
     p.tracks.forEach(t => queue.push({ ...t, src: p.audio + t.file, project: p.title }));
   }
   const rows = [...document.querySelectorAll('.track')];
+
+  // which screen is showing: no hash = home, #albums = the shelf, #<id> = one album
+  const sections = [...main.querySelectorAll('.project')];
+  sections.forEach(s => s.insertAdjacentHTML('afterbegin', '<a class="back" href="#albums">Back to albums</a>'));
+  function route() {
+    const id = location.hash.slice(1);
+    document.body.classList.toggle('gate', !id);
+    shelf.hidden = sections.some(s => s.id === id);
+    sections.forEach(s => { s.hidden = s.id !== id; });
+    window.scene.build();
+    scrollTo(0, 0);
+  }
+  addEventListener('hashchange', route);
+
+  const hero = document.querySelector('.hero'), flash = $('flash');
+  $('enter').addEventListener('click', () => {
+    if (current < 0) load(0); else if (audio.paused) audio.play().catch(() => {});
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { location.hash = 'albums'; return; }
+    const [fx, fy] = window.scene.focus();
+    $('scene').style.transformOrigin = `${fx * 100}% ${fy * 100}%`;
+    hero.classList.add('entering'); flash.classList.add('on');
+    setTimeout(() => {
+      hero.classList.remove('entering');
+      location.hash = 'albums';
+      setTimeout(() => flash.classList.remove('on'), 80);
+    }, 1600);
+  });
 
   function load(i, autoplay = true) {
     current = (i + queue.length) % queue.length;
@@ -251,5 +309,10 @@
   });
   seek.addEventListener('input', () => { dragging = true; $('time-now').textContent = fmt(seek.value); });
   seek.addEventListener('change', () => { audio.currentTime = seek.value; dragging = false; });
+  // Home screen: cue up the title track and try to start it. Most browsers only
+  // allow sound after a click, in which case Enter starts it instead.
+  route();
+  if (!location.hash) { load(0, false); audio.play().catch(() => {}); }
+
   audio.addEventListener('error', () => { if (current >= 0) $('now-where').textContent = `Couldn't load ${queue[current].file}. Check the audio folder.`; });
 })();

@@ -56,6 +56,52 @@ p { margin: 0; }
 .pixel-btn:active { transform: translateY(var(--px)); box-shadow: 0 0 0 var(--px) var(--bark); }
 .pixel-btn[aria-pressed="true"] { background: var(--lichen); box-shadow: 0 var(--px) 0 var(--fern), 0 0 0 var(--px) var(--bark); }
 
+.hero { overflow: hidden; }
+.hero-text h1 a { color: inherit; text-decoration: none; }
+.hero-text .pixel-btn { display: block; }
+.pixel-btn.enter { font-size: 1.5rem; padding: .7rem 1.6rem; margin-bottom: 1.5rem; }
+.pixel-btn.quiet, .pixel-btn.quiet[aria-pressed="true"] {
+  background: rgba(22, 38, 29, .7); color: var(--cream);
+  box-shadow: 0 0 0 2px var(--mist); font-size: .875rem;
+}
+.pixel-btn.quiet[aria-pressed="true"] { color: var(--lichen); box-shadow: 0 0 0 2px var(--lichen); }
+
+/* home screen: the forest fills the window until you enter */
+body.gate { overflow: hidden; padding-bottom: 0; }
+body.gate .hero { height: 100vh; height: 100dvh; max-height: none; }
+body.gate main, body.gate .foot { display: none; }
+
+/* inside: the forest becomes a window above the albums */
+body:not(.gate) .hero { height: 32vh; min-height: 200px; }
+body:not(.gate) .hero-text { top: 1.25rem; }
+body:not(.gate) .hero-text h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); margin-bottom: 1rem; }
+body:not(.gate) .hero-text p, body:not(.gate) #enter { display: none; }
+
+/* entering: walk up to the cabin window, then its light fills the screen */
+.hero.entering #scene { transform: scale(18); transition: transform 1.6s cubic-bezier(.65, 0, .9, .45); }
+.hero.entering .hero-text { opacity: 0; transition: opacity .4s; }
+.flash {
+  position: fixed; inset: 0; z-index: 20; pointer-events: none;
+  background: var(--lantern); opacity: 0; transition: opacity .8s ease-out;
+}
+.flash.on { opacity: 1; transition: opacity .55s ease-in 1s; }
+
+/* ---------- album shelf ---------- */
+.shelf { max-width: 56rem; margin: 0 auto; padding: 3rem clamp(1rem, 4vw, 2rem) 1rem; }
+.shelf h2 { font-size: clamp(2rem, 5vw, 3rem); color: var(--lichen); margin-bottom: 2rem; }
+.albums { display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: 2.5rem 2rem; }
+.album { display: block; color: inherit; text-decoration: none; }
+.album canvas {
+  display: block; width: 100%; aspect-ratio: 1; image-rendering: pixelated;
+  box-shadow: 0 0 0 var(--px) var(--bark), var(--px) calc(var(--px) * 2) 0 var(--px) #16261d;
+  transition: transform .12s;
+}
+.album:hover canvas, .album:focus-visible canvas { transform: translateY(calc(var(--px) * -1)); }
+.album strong { display: block; margin-top: 1.1rem; font: 600 1.5rem var(--display); }
+.album span { color: var(--mist); font-size: .9375rem; }
+.back { display: inline-block; margin-bottom: 1.5rem; color: var(--lantern); font-family: var(--display); }
+[hidden] { display: none !important; }
+
 /* ---------- projects ---------- */
 .project { max-width: 56rem; margin: 0 auto; padding: 3.5rem clamp(1rem, 4vw, 2rem) 1rem; }
 .project h2 { font-size: clamp(2.25rem, 6vw, 3.75rem); color: var(--lichen); }
