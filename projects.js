@@ -117,6 +117,7 @@ window.PROJECTS = [
   {
     "id": "first-light",
     "image": "covers/first-light.jpg",
+    "story": "stories/first-light/story.html",
     "cover": ["#3b3a5a", "#b9797a", "#f8d68e", "#4b7059", "#3a2a26"],
     "title": "First Light",
     "blurb": "A five-minute piece for full orchestra, written as a score and rendered with Muse Sounds.",

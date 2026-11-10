@@ -225,3 +225,22 @@ body[data-album="landfall"] { --moss: #0b0e1c; --canopy: #202944; --lichen: #f0e
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+/* ---------- cover story ---------- */
+.story-link { color: var(--lantern); font-family: var(--display); }
+.story-body { max-width: 40rem; }
+.story-body h3 { font: 600 1.75rem/1.15 var(--display); color: var(--lichen); margin: 3rem 0 1rem; }
+.story-body p, .story-body ul { margin: 0 0 1.1rem; line-height: 1.7; }
+.story-body .lede { font-size: 1.25rem; margin-top: 1.25rem; }
+.story-body ul { padding-left: 1.25rem; }
+.story-body li { margin-bottom: .6rem; }
+.story-body figure { margin: 2rem 0; }
+.story-body figure.small { max-width: 24rem; }
+.story-body img { display: block; width: 100%; height: auto; box-shadow: 0 0 0 1px rgba(255, 255, 255, .14); }
+.story-body figcaption { margin-top: .75rem; color: var(--mist); font-size: .9375rem; }
+.story-body .sign { margin-top: 3rem; color: var(--mist); }
+
+/* ---------- logo ---------- */
+.hero-text .logo { display: block; width: fit-content; margin-bottom: 1rem; }
+.hero-text .logo img { display: block; width: clamp(64px, 9vw, 96px); height: auto; image-rendering: pixelated; filter: drop-shadow(var(--px) var(--px) 0 #16261d); }
+body:not(.gate) .hero-text .logo img { width: 48px; }

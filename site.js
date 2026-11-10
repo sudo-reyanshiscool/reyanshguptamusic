@@ -263,20 +263,45 @@
       </div>` : ''}`;
     sec.querySelectorAll('canvas[data-kind]').forEach(c => window.drawInstrument(c, c.dataset.kind));
     main.append(sec);
+    if (p.story) {                     // a page of its own, loaded the first time it is opened
+      sec.querySelector('.meta').insertAdjacentHTML('beforeend', `<a class="story-link" href="#${p.id}-story">Read the story of the cover</a>`);
+      const st = document.createElement('section');
+      st.className = 'project'; st.id = p.id + '-story'; st.hidden = true;
+      st.dataset.album = p.id; st.dataset.src = p.story;
+      st.innerHTML = '<div class="story-body"><p>Loading the story…</p></div>';
+      main.append(st);
+    }
     p.tracks.forEach(t => queue.push({ ...t, src: p.audio + t.file, project: p.title }));
   }
   const rows = [...document.querySelectorAll('.track')];   // one per queue entry (movements are .mark, not .track)
 
   // which screen is showing: no hash = home, #albums = the shelf, #<id> = one album
   const sections = [...main.querySelectorAll('.project')];
-  sections.forEach(s => s.insertAdjacentHTML('afterbegin', '<a class="back" href="#albums">Back to albums</a>'));
+  sections.forEach(s => s.insertAdjacentHTML('afterbegin', s.dataset.album
+    ? `<a class="back" href="#${s.dataset.album}">Back to the album</a>`
+    : '<a class="back" href="#albums">Back to albums</a>'));
+  async function loadStory(s) {
+    if (s.dataset.loaded) return;
+    s.dataset.loaded = '1';
+    const body = s.querySelector('.story-body');
+    try {
+      const r = await fetch(s.dataset.src);
+      if (!r.ok) throw new Error(r.status);
+      body.innerHTML = await r.text();
+    } catch {
+      delete s.dataset.loaded;
+      body.innerHTML = '<p>The story didn\'t load. Check your connection and open this page again.</p>';
+    }
+  }
   function route() {
     const id = location.hash.slice(1);
     document.body.classList.toggle('gate', !id);
     shelf.hidden = sections.some(s => s.id === id);
     sections.forEach(s => { s.hidden = s.id !== id; });
     // an open album swaps the forest for its own full-page background and colours
-    if (sections.some(s => s.id === id) && window.backdrop.set(id)) document.body.dataset.album = id;
+    const open = sections.find(s => s.id === id), album = open && (open.dataset.album || open.id);
+    if (open && open.dataset.src) loadStory(open);
+    if (album && window.backdrop.set(album)) document.body.dataset.album = album;
     else { window.backdrop.set(null); delete document.body.dataset.album; }
     window.scene.build();
     scrollTo(0, 0);
