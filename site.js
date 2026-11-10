@@ -181,6 +181,7 @@
 /* ============ projects and player ============ */
 (() => {
   const fmt = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+  const count = n => `${n} ${n === 1 ? 'track' : 'tracks'}`;
   const $ = id => document.getElementById(id);
   const audio = $('audio'), player = $('player'), seek = $('seek');
   const queue = [];          // every track on the page, in order
@@ -214,7 +215,7 @@
     const card = document.createElement('a');
     card.className = 'album'; card.href = '#' + p.id;
     card.innerHTML = `${p.image ? `<img src="${p.image}" alt="" width="800" height="800">` : '<canvas aria-hidden="true"></canvas>'}<strong>${p.title}</strong>
-      <span>${p.tracks.length ? `${p.tracks.length} tracks, ${Math.round(total / 60)} min` : 'In the works'}</span>`;
+      <span>${p.tracks.length ? `${count(p.tracks.length)}, ${Math.round(total / 60)} min` : 'In the works'}</span>`;
     if (!p.image) drawCover(card.firstChild, p.cover, n * 97 + 13);   // no artwork yet: draw a stand-in
     shelf.lastChild.append(card);
 
@@ -231,7 +232,7 @@
       <p class="blurb">${p.blurb}</p>
       <div class="meta">
         <button class="pixel-btn" type="button" data-play="${queue.length}">Play ${p.title}</button>
-        <span>${p.tracks.length} tracks, ${Math.floor(total / 60)} min ${total % 60} s</span>
+        <span>${count(p.tracks.length)}, ${Math.floor(total / 60)} min ${total % 60} s</span>
       </div>
       <ol class="tracks">${p.tracks.map((t, i) => `
         <li><button class="track" type="button" data-play="${queue.length + i}">

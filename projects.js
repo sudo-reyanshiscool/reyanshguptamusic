@@ -118,8 +118,16 @@ window.PROJECTS = [
     "id": "first-light",
     "cover": ["#3b3a5a", "#b9797a", "#f8d68e", "#4b7059", "#3a2a26"],
     "title": "First Light",
-    "blurb": "An orchestral project, still in the works. Nothing to play yet.",
+    "blurb": "A five-minute piece for full orchestra, written as a score and rendered with Muse Sounds.",
     "audio": "audio/first-light/",
-    "tracks": []
+    "tracks": [
+      {
+        "file": "first_light.mp3",
+        "title": "First Light",
+        "where": "Full orchestra",
+        "seconds": 301,
+        "sound": "Woodwinds, brass, timpani, harp and strings."
+      }
+    ]
   }
 ];
