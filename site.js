@@ -89,7 +89,7 @@
     }
 
     const D = rng(5);
-    drops = Array.from({ length: Math.round(W * 0.85) }, () => newDrop(D, true));
+    drops = Array.from({ length: Math.round(W * 0.32) }, () => newDrop(D, true));
     splashes = [];
     frame(0, true);                    // paint straight away so the scene is never blank
   }
@@ -132,10 +132,10 @@
         if (!d.far) splashes.push({ x: d.x | 0, y: d.end | 0, age: 0 });
         Object.assign(d, newDrop(d.R, false));
       }
-      ctx.fillStyle = d.far ? 'rgba(170,200,190,.35)' : 'rgba(205,228,220,.6)';
+      ctx.fillStyle = d.far ? 'rgba(170,200,190,.25)' : 'rgba(205,228,220,.42)';
       for (let i = 0; i < d.len; i++) ctx.fillRect(Math.round(d.x - i * 0.25), Math.round(d.y - i), 1, 1);
     }
-    ctx.fillStyle = 'rgba(205,228,220,.7)';
+    ctx.fillStyle = 'rgba(205,228,220,.5)';
     splashes = splashes.filter(s => s.age++ < 6);
     for (const s of splashes) {
       const k = s.age < 3 ? 1 : 2;
