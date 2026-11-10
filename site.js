@@ -241,7 +241,20 @@
           <span class="where">${t.where}</span>
           <span class="dur">${fmt(t.seconds)}</span>
         </button></li>`).join('')}
-      </ol>`;
+      </ol>
+      ${p.parts ? `
+      <div class="scores">
+        <h3>Scores</h3>
+        <p>The full score, and a separate part for each of the ${p.parts.length} instruments. Each opens as a PDF.</p>
+        <a class="pixel-btn" href="${p.scores}${p.score}" target="_blank" rel="noopener">Open the full score</a>
+        <ul class="parts">${p.parts.map(x => `
+          <li><a href="${p.scores}${x.file}" target="_blank" rel="noopener">
+            <canvas data-kind="${x.kind}" aria-hidden="true"></canvas>
+            <strong>${x.name}</strong><span>Open the part</span>
+          </a></li>`).join('')}
+        </ul>
+      </div>` : ''}`;
+    sec.querySelectorAll('canvas[data-kind]').forEach(c => window.drawInstrument(c, c.dataset.kind));
     main.append(sec);
     p.tracks.forEach(t => queue.push({ ...t, src: p.audio + t.file, project: p.title }));
   }

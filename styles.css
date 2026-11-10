@@ -137,6 +137,25 @@ body:not(.gate) .hero-text p, body:not(.gate) #enter { display: none; }
 .track[aria-current="true"] { background: var(--canopy); box-shadow: inset var(--px) 0 0 var(--lantern); }
 .track[aria-current="true"] .title, .track[aria-current="true"] .num { color: var(--lantern); }
 
+/* ---------- scores ---------- */
+.scores { margin-top: 3.5rem; }
+.scores h3 { font: 600 2rem/1.1 var(--display); color: var(--lichen); margin: 0 0 .75rem; }
+.scores p { max-width: 62ch; margin-bottom: 1.5rem; }
+.scores .pixel-btn { display: inline-block; text-decoration: none; }
+.parts {
+  list-style: none; margin: 2.5rem 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: 2rem 1.5rem;
+}
+.parts a { display: block; color: inherit; text-decoration: none; }
+.parts canvas {
+  display: block; width: 100%; aspect-ratio: 1; image-rendering: pixelated;
+  background: var(--canopy); box-shadow: 0 0 0 var(--px) var(--bark);
+  transition: transform .12s;
+}
+.parts a:hover canvas, .parts a:focus-visible canvas { transform: translateY(calc(var(--px) * -1)); background: #35573f; }
+.parts strong { display: block; margin-top: .9rem; font: 600 1.125rem var(--display); }
+.parts span { color: var(--mist); font-size: .875rem; }
+
 .foot { max-width: 56rem; margin: 0 auto; padding: 2.5rem clamp(1rem, 4vw, 2rem); color: var(--mist); }
 
 /* ---------- player ---------- */

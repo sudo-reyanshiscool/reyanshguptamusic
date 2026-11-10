@@ -120,6 +120,24 @@ window.PROJECTS = [
     "title": "First Light",
     "blurb": "A five-minute piece for full orchestra, written as a score and rendered with Muse Sounds.",
     "audio": "audio/first-light/",
+    "scores": "scores/first-light/",
+    "score": "score.pdf",
+    "parts": [
+      { "name": "Flute", "kind": "flute", "file": "part-flute.pdf" },
+      { "name": "Oboe", "kind": "oboe", "file": "part-oboe.pdf" },
+      { "name": "Clarinet in B♭", "kind": "clarinet", "file": "part-clarinet-in-bb.pdf" },
+      { "name": "Bassoon", "kind": "bassoon", "file": "part-bassoon.pdf" },
+      { "name": "Horns", "kind": "horn", "file": "part-horns.pdf" },
+      { "name": "Trumpets in B♭", "kind": "trumpet", "file": "part-trumpets-in-bb.pdf" },
+      { "name": "Trombones", "kind": "trombone", "file": "part-trombones.pdf" },
+      { "name": "Timpani", "kind": "timpani", "file": "part-timpani.pdf" },
+      { "name": "Harp", "kind": "harp", "file": "part-harp.pdf" },
+      { "name": "Violin I", "kind": "violin-1", "file": "part-violin-i.pdf" },
+      { "name": "Violin II", "kind": "violin-2", "file": "part-violin-ii.pdf" },
+      { "name": "Viola", "kind": "viola", "file": "part-viola.pdf" },
+      { "name": "Cello", "kind": "cello", "file": "part-cello.pdf" },
+      { "name": "Double Bass", "kind": "bass", "file": "part-double-bass.pdf" }
+    ],
     "tracks": [
       {
         "file": "first_light.mp3",
