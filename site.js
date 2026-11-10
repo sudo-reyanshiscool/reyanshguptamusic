@@ -275,6 +275,9 @@
     document.body.classList.toggle('gate', !id);
     shelf.hidden = sections.some(s => s.id === id);
     sections.forEach(s => { s.hidden = s.id !== id; });
+    // an open album swaps the forest for its own full-page background and colours
+    if (sections.some(s => s.id === id) && window.backdrop.set(id)) document.body.dataset.album = id;
+    else { window.backdrop.set(null); delete document.body.dataset.album; }
     window.scene.build();
     scrollTo(0, 0);
   }

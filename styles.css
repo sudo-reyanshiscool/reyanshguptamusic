@@ -86,6 +86,24 @@ body:not(.gate) .hero-text p, body:not(.gate) #enter { display: none; }
 }
 .flash.on { opacity: 1; transition: opacity .55s ease-in 1s; }
 
+/* ---------- an open album: its own sky and colours ---------- */
+#backdrop { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; display: none; }
+body[data-album] #backdrop { display: block; }
+body[data-album]:not(.gate) .hero { height: auto; min-height: 0; overflow: visible; }
+body[data-album] #scene { display: none; }
+body[data-album] .hero-text { position: static; padding: 1.25rem clamp(1rem, 6vw, 5rem) 0; max-width: none; }
+body[data-album] .project {
+  /* the first screen belongs to the sky; the album's panel starts below it */
+  margin-top: 36vh; margin-bottom: 3rem; padding-top: 2.5rem; padding-bottom: 2.5rem;
+  background: color-mix(in srgb, var(--moss) var(--veil, 60%), transparent);
+  -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .1);
+}
+body[data-album] .foot { display: none; }
+body[data-album="loamlight"] { --veil: 76%; --moss: #23143a; --canopy: #402a58; --lichen: #ffd9a0; --fern: #f08a5a; --mist: #dcc8dc; }
+body[data-album="first-light"] { --moss: #0a0616; --canopy: #26164a; --lichen: #f6ecd8; --fern: #d873ff; --mist: #c6badf; --lantern: #ffbe6e; }
+body[data-album="landfall"] { --moss: #0b0e1c; --canopy: #202944; --lichen: #f0ecf5; --fern: #a9bfe6; --mist: #bcc3d6; --lantern: #ffe6b0; }
+
 /* ---------- album shelf ---------- */
 .shelf { max-width: 56rem; margin: 0 auto; padding: 3rem clamp(1rem, 4vw, 2rem) 1rem; }
 .shelf h2 { font-size: clamp(2rem, 5vw, 3rem); color: var(--lichen); margin-bottom: 2rem; }
