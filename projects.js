@@ -2,6 +2,7 @@
 window.PROJECTS = [
   {
     "id": "loamlight",
+    "image": "covers/loamlight.jpg",
     "title": "Loamlight",
     "blurb": "Fifteen tracks for a blocky sandbox game, made entirely by code. No samples, no soundfonts and no AI audio: every waveform is computed from scratch. One eight-bar melody hides in every track, re-voiced for each biome in its own mode, tempo and instrument.",
     "audio": "audio/loamlight/",

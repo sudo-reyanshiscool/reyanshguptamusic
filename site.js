@@ -213,9 +213,9 @@
     const total = p.tracks.reduce((a, t) => a + t.seconds, 0);
     const card = document.createElement('a');
     card.className = 'album'; card.href = '#' + p.id;
-    card.innerHTML = `<canvas aria-hidden="true"></canvas><strong>${p.title}</strong>
+    card.innerHTML = `${p.image ? `<img src="${p.image}" alt="" width="800" height="800">` : '<canvas aria-hidden="true"></canvas>'}<strong>${p.title}</strong>
       <span>${p.tracks.length ? `${p.tracks.length} tracks, ${Math.round(total / 60)} min` : 'In the works'}</span>`;
-    drawCover(card.firstChild, p.cover, n * 97 + 13);
+    if (!p.image) drawCover(card.firstChild, p.cover, n * 97 + 13);   // no artwork yet: draw a stand-in
     shelf.lastChild.append(card);
 
     const sec = document.createElement('section');
@@ -226,6 +226,7 @@
       continue;
     }
     sec.innerHTML = `
+      ${p.image ? `<img class="cover" src="${p.image}" alt="${p.title} cover art" width="800" height="800">` : ''}
       <h2>${p.title}</h2>
       <p class="blurb">${p.blurb}</p>
       <div class="meta">
