@@ -328,5 +328,31 @@ window.PROJECTS = [
         ]
       }
     ]
+  },
+  {
+    "id": "ashen-dawn",
+    "image": "covers/ashen-dawn.jpg",
+    "scoreSoon": true,
+    "cover": ["#2a2236", "#7a3b3b", "#f0b45a", "#3b4a5e", "#16131c"],
+    "title": "Ashen Dawn",
+    "blurb": "A four-minute dramatic piece for full orchestra and wordless choir, made entirely by code. No samples, no soundfonts and no AI audio: every waveform is computed from scratch. It begins in D minor on a low pedal and ends in a blaze of D major.",
+    "audio": "audio/ashen-dawn/",
+    "tracks": [
+      {
+        "file": "ashen_dawn.mp3",
+        "title": "Ashen Dawn",
+        "where": "Orchestra and choir",
+        "seconds": 263,
+        "sound": "Strings, brass, woodwinds, harp, timpani and choir in a synthetic hall.",
+        "marks": [
+          { "num": "I", "title": "Awakening", "at": 1, "note": "A low D pedal, a timpani swell and a solo horn call; the cellos ask a question." },
+          { "num": "II", "title": "Theme", "at": 32, "note": "The full melody on violins over strings and harp." },
+          { "num": "III", "title": "Gathering", "at": 60, "note": "A driving string ostinato, then a rising sequence, timpani and snare rolls and a cymbal swell." },
+          { "num": "IV", "title": "Citadel", "at": 108, "note": "Full orchestra and choir state the theme twice, then it collapses on a half-cadence." },
+          { "num": "V", "title": "Ashes", "at": 152, "note": "Oboe, then cello, over harp; a slow build back." },
+          { "num": "VI", "title": "Dawn", "at": 200, "note": "The theme returns in D minor, then blazes in D major to one last held chord." }
+        ]
+      }
+    ]
   }
 ];

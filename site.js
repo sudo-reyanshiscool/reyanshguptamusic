@@ -260,6 +260,10 @@
             <strong>${x.name}</strong><span>Open the part</span>
           </a></li>`).join('')}
         </ul>
+      </div>` : p.scoreSoon ? `
+      <div class="scores">
+        <h3>Scores</h3>
+        <p>Score coming soon.</p>
       </div>` : ''}`;
     sec.querySelectorAll('canvas[data-kind]').forEach(c => window.drawInstrument(c, c.dataset.kind));
     main.append(sec);
