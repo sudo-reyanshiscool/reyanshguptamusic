@@ -147,5 +147,183 @@ window.PROJECTS = [
         "sound": "Woodwinds, brass, timpani, harp and strings."
       }
     ]
+  },
+  {
+    "id": "landfall",
+    "cover": [
+      "#1f2a44",
+      "#3d5a7a",
+      "#f1ead6",
+      "#4b7059",
+      "#2a2f3a"
+    ],
+    "title": "Landfall",
+    "blurb": "A piece for large orchestra, organ and wordless chorus in five movements, made entirely by code. No samples, no soundfonts and no AI audio: every waveform is computed from scratch, and the sheet music is engraved from the same code.",
+    "audio": "audio/landfall/",
+    "scores": "scores/landfall/",
+    "score": "score.pdf",
+    "parts": [
+      {
+        "name": "Flutes",
+        "kind": "flute",
+        "file": "part-flutes.pdf"
+      },
+      {
+        "name": "Oboes",
+        "kind": "oboe",
+        "file": "part-oboes.pdf"
+      },
+      {
+        "name": "Cor anglais",
+        "kind": "cor-anglais",
+        "file": "part-cor-anglais.pdf"
+      },
+      {
+        "name": "Clarinets",
+        "kind": "clarinet",
+        "file": "part-clarinets.pdf"
+      },
+      {
+        "name": "Bassoons",
+        "kind": "bassoon",
+        "file": "part-bassoons.pdf"
+      },
+      {
+        "name": "Horns",
+        "kind": "horn",
+        "file": "part-horns.pdf"
+      },
+      {
+        "name": "Trumpets",
+        "kind": "trumpet",
+        "file": "part-trumpets.pdf"
+      },
+      {
+        "name": "Trombones",
+        "kind": "trombone",
+        "file": "part-trombones.pdf"
+      },
+      {
+        "name": "Tuba",
+        "kind": "tuba",
+        "file": "part-tuba.pdf"
+      },
+      {
+        "name": "Timpani",
+        "kind": "timpani",
+        "file": "part-timpani.pdf"
+      },
+      {
+        "name": "Snare Drum",
+        "kind": "snare",
+        "file": "part-snare-drum.pdf"
+      },
+      {
+        "name": "Bass Drum",
+        "kind": "bass-drum",
+        "file": "part-bass-drum.pdf"
+      },
+      {
+        "name": "Cymbals",
+        "kind": "cymbals",
+        "file": "part-cymbals.pdf"
+      },
+      {
+        "name": "Tam-tam",
+        "kind": "tam-tam",
+        "file": "part-tam-tam.pdf"
+      },
+      {
+        "name": "Glockenspiel",
+        "kind": "glockenspiel",
+        "file": "part-glockenspiel.pdf"
+      },
+      {
+        "name": "Harp",
+        "kind": "harp",
+        "file": "part-harp.pdf"
+      },
+      {
+        "name": "Organ",
+        "kind": "organ",
+        "file": "part-organ.pdf"
+      },
+      {
+        "name": "Sopranos and Altos",
+        "kind": "choir-high",
+        "file": "part-sopranos-and-altos.pdf"
+      },
+      {
+        "name": "Tenors and Basses",
+        "kind": "choir-low",
+        "file": "part-tenors-and-basses.pdf"
+      },
+      {
+        "name": "Violins I",
+        "kind": "violin-1",
+        "file": "part-violins-i.pdf"
+      },
+      {
+        "name": "Violins II",
+        "kind": "violin-2",
+        "file": "part-violins-ii.pdf"
+      },
+      {
+        "name": "Violas",
+        "kind": "viola",
+        "file": "part-violas.pdf"
+      },
+      {
+        "name": "Cellos",
+        "kind": "cello",
+        "file": "part-cellos.pdf"
+      },
+      {
+        "name": "Double Basses",
+        "kind": "bass",
+        "file": "part-double-basses.pdf"
+      }
+    ],
+    "tracks": [
+      {
+        "file": "landfall.mp3",
+        "title": "Landfall",
+        "where": "Orchestra, organ and chorus",
+        "seconds": 288,
+        "sound": "Five movements, played without a break.",
+        "marks": [
+          {
+            "num": "I",
+            "title": "Orbit",
+            "at": 1,
+            "note": "A quiet organ figure in 3/4 over a slow bass; strings, horn, then full organ, brass and chorus pile on."
+          },
+          {
+            "num": "II",
+            "title": "Largo",
+            "at": 63,
+            "note": "A soft brass chorale, then a cor anglais sings over muted strings and harp."
+          },
+          {
+            "num": "III",
+            "title": "Con fuoco",
+            "at": 126,
+            "note": "A driving string ostinato, a march on horns and trumpets, a fanfare, then a battle."
+          },
+          {
+            "num": "IV",
+            "title": "Maestoso",
+            "at": 203,
+            "note": "The main theme in D major for everyone, with the opening organ figure underneath."
+          },
+          {
+            "num": "V",
+            "title": "First night",
+            "at": 247,
+            "note": "The organ figure alone, the cor anglais and horn remembering, and one last held chord."
+          }
+        ]
+      }
+    ]
   }
 ];

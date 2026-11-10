@@ -240,7 +240,14 @@
           <span><span class="title">${t.title}</span><span class="sound">${t.sound}</span></span>
           <span class="where">${t.where}</span>
           <span class="dur">${fmt(t.seconds)}</span>
-        </button></li>`).join('')}
+        </button>${t.marks ? `
+        <ol class="marks">${t.marks.map(m => `
+          <li><button class="mark" type="button" data-play="${queue.length + i}" data-at="${m.at}">
+            <span class="num">${m.num}</span>
+            <span><span class="title">${m.title}</span><span class="sound">${m.note}</span></span>
+            <span class="dur">${fmt(m.at)}</span>
+          </button></li>`).join('')}
+        </ol>` : ''}</li>`).join('')}
       </ol>
       ${p.parts ? `
       <div class="scores">
@@ -258,7 +265,7 @@
     main.append(sec);
     p.tracks.forEach(t => queue.push({ ...t, src: p.audio + t.file, project: p.title }));
   }
-  const rows = [...document.querySelectorAll('.track')];
+  const rows = [...document.querySelectorAll('.track')];   // one per queue entry (movements are .mark, not .track)
 
   // which screen is showing: no hash = home, #albums = the shelf, #<id> = one album
   const sections = [...main.querySelectorAll('.project')];
@@ -304,6 +311,13 @@
     const b = e.target.closest('[data-play]');
     if (!b) return;
     const i = +b.dataset.play;
+    if (b.dataset.at != null) {        // a movement: jump to its start inside the track
+      if (i !== current) load(i, false);
+      const go = () => { audio.currentTime = +b.dataset.at; audio.play().catch(() => {}); };
+      audio.readyState >= 1 ? go() : audio.addEventListener('loadedmetadata', go, { once: true });
+      if (audio.readyState < 1) audio.load();
+      return;
+    }
     if (i === current && b.classList.contains('track')) audio.paused ? audio.play() : audio.pause();
     else load(i);
   });

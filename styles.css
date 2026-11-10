@@ -137,6 +137,21 @@ body:not(.gate) .hero-text p, body:not(.gate) #enter { display: none; }
 .track[aria-current="true"] { background: var(--canopy); box-shadow: inset var(--px) 0 0 var(--lantern); }
 .track[aria-current="true"] .title, .track[aria-current="true"] .num { color: var(--lantern); }
 
+/* movements inside one long track */
+.marks { list-style: none; margin: 0; padding: 0 0 .5rem 3.5rem; }
+.marks li { border: 0; border-top: 2px solid var(--canopy); }
+.mark {
+  display: grid; grid-template-columns: 2rem 1fr 3.25rem; gap: 0 1rem; align-items: baseline;
+  width: 100%; padding: .6rem .75rem; text-align: left;
+  background: none; border: 0; color: inherit; font: inherit; cursor: pointer;
+}
+.mark:hover { background: var(--canopy); }
+.mark .num { font-family: var(--display); color: var(--fern); }
+.mark .title { font-weight: 800; }
+.mark .sound { display: block; color: var(--mist); font-size: .9375rem; }
+.mark .dur { font-family: var(--display); color: var(--mist); text-align: right; }
+@media (max-width: 640px) { .marks { padding-left: 1rem; } }
+
 /* ---------- scores ---------- */
 .scores { margin-top: 3.5rem; }
 .scores h3 { font: 600 2rem/1.1 var(--display); color: var(--lichen); margin: 0 0 .75rem; }

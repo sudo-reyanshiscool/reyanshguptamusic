@@ -36,6 +36,16 @@ window.drawInstrument = (cv, kind) => {
     if (o.bow) { P(o.bow, 5, 1, 23, '#9a6a3a'); P(o.bow + 1, 6, 1, 21, CREAM); P(o.bow, 27, 2, 2, EBONY); }
   };
 
+  // three singers in robes, mouths open, each holding a folder
+  const choir = robe => {
+    ['#e8b98a', '#a86a42', '#f0cfa8'].forEach((skin, i) => {
+      const x = 7 + i * 9, top = i === 1 ? 5 : 7;
+      for (let y = 0; y < 30 - top - 6; y++) { const w = Math.round(2 + y * 0.18); P(x - w, top + 6 + y, w * 2 + 1, 1, robe); }
+      disc(x, top + 3, 2, 2, skin); P(x - 2, top, 5, 2, i === 1 ? EBONY : '#5a3a1e'); P(x, top + 4, 1, 1, EBONY);
+      P(x - 2, top + 11, 5, 3, CREAM); P(x, top + 11, 1, 3, SILV_D);
+    });
+  };
+
   const draw = {
     flute() {
       line(3, 24, 27, 10, SILV_D, 3); line(3, 23, 27, 9, SILV, 2);
@@ -96,6 +106,54 @@ window.drawInstrument = (cv, kind) => {
       line(8, 5, 14, 8, BRASS, 2); line(14, 8, 20, 5, BRASS, 2); line(20, 5, 26, 8, BRASS, 2);
       P(4, 28, 10, 2, BRASS_D);
     },
+    'cor-anglais'() {
+      line(9, 25, 22, 6, BLK, 3); disc(9, 28, 3, 3, BLK); P(8, 31, 4, 1, SILV_D);
+      line(24, 5, 27, 4, SILV, 1); P(27, 3, 2, 1, CREAM);
+      for (const t of [0.25, 0.4, 0.55, 0.7, 0.85]) { const [x, y] = along(9, 25, 22, 6, t); P(x + 3, y, 1, 2, SILV); }
+    },
+    tuba() {
+      for (let i = 0; i < 7; i++) { const w = Math.round(17 - i * 1.9); P(13 - w / 2, 3 + i, w, 1, BRASS); }
+      P(4, 2, 18, 1, BRASS_HI);
+      P(11, 10, 5, 17, BRASS); P(11, 26, 14, 3, BRASS); P(22, 13, 3, 14, BRASS_D); P(17, 12, 7, 2, BRASS_D);
+      for (const x of [17, 19]) { P(x, 16, 1, 7, SILV); P(x, 15, 1, 1, CREAM); }
+      line(23, 12, 27, 9, SILV, 1); P(27, 7, 2, 2, SILV);
+    },
+    snare() {
+      line(6, 3, 15, 9, '#c89a5a', 1); line(26, 3, 17, 9, '#c89a5a', 1);
+      line(12, 23, 8, 30, SILV_D, 1); line(20, 23, 24, 30, SILV_D, 1);
+      P(6, 12, 20, 9, '#b03a2e'); for (const x of [9, 15, 21]) P(x, 12, 1, 9, SILV);
+      P(5, 10, 22, 2, CREAM); P(5, 21, 22, 2, SILV_D);
+    },
+    'bass-drum'() {
+      P(6, 28, 4, 2, SILV_D); P(22, 28, 4, 2, SILV_D);
+      disc(16, 16, 12, 12, '#7a2a22'); disc(16, 16, 10, 10, CREAM); disc(16, 16, 10, 10, 'rgba(184,106,58,.12)');
+      for (let a = 0; a < 8; a++) P(16 + Math.cos(a * 0.785) * 11, 16 + Math.sin(a * 0.785) * 11, 1, 1, SILV);
+      line(28, 3, 21, 12, '#9a6a3a', 1); disc(20, 13, 2, 2, '#b86a3a');
+    },
+    cymbals() {
+      disc(10, 16, 3, 11, BRASS); disc(10, 16, 1, 9, BRASS_HI); P(6, 15, 2, 3, EBONY);
+      disc(22, 16, 3, 11, BRASS); disc(22, 16, 1, 9, BRASS_D); P(25, 15, 2, 3, EBONY);
+      P(16, 6, 1, 2, CREAM); P(15, 11, 2, 1, CREAM); P(16, 16, 1, 1, CREAM); P(15, 21, 2, 1, CREAM); P(16, 25, 1, 2, CREAM);
+    },
+    'tam-tam'() {
+      P(4, 3, 2, 27, SILV_D); P(26, 3, 2, 27, SILV_D); P(4, 3, 24, 2, SILV_D); P(2, 30, 6, 1, SILV_D); P(24, 30, 6, 1, SILV_D);
+      P(11, 5, 1, 5, CREAM); P(21, 5, 1, 5, CREAM);
+      disc(16, 18, 9, 9, BRASS_D); disc(16, 18, 7, 7, BRASS); disc(16, 18, 2, 2, BRASS_D); P(12, 13, 2, 2, BRASS_HI);
+    },
+    glockenspiel() {
+      P(3, 12, 27, 1, '#9a5a2a'); P(3, 19, 25, 1, '#9a5a2a');
+      for (let i = 0; i < 9; i++) P(4 + i * 3, 8 + i * 0.6, 2, 16 - i, i % 2 ? SILV_D : SILV);
+      line(7, 30, 13, 25, '#c89a5a', 1); P(13, 24, 2, 2, '#e05a4a');
+      line(25, 30, 20, 25, '#c89a5a', 1); P(19, 24, 2, 2, '#e05a4a');
+    },
+    organ() {
+      [12, 15, 18, 21, 21, 18, 15, 12].forEach((h, i) => { P(5 + i * 3, 23 - h, 2, h, i % 2 ? SILV_D : SILV); P(5 + i * 3, 19, 2, 1, EBONY); });
+      P(3, 23, 26, 7, '#6a3a1e'); P(3, 23, 26, 1, '#8a4f2a');
+      P(7, 25, 18, 2, CREAM); for (let x = 8; x < 25; x += 2) P(x, 25, 1, 1, EBONY);
+      P(9, 28, 14, 1, '#3a2418');
+    },
+    'choir-high': () => choir('#a83a4a'),
+    'choir-low': () => choir('#3a4a8a'),
     'violin-1': () => fiddle({ uy: 14, urx: 4, ury: 4, ly: 22, lrx: 5, lry: 5, top: 4, col: '#c8742f', dark: '#8a4a1e', bow: 25 }),
     'violin-2': () => fiddle({ uy: 14, urx: 4, ury: 4, ly: 22, lrx: 5, lry: 5, top: 4, col: '#c8742f', dark: '#8a4a1e', bow: 6 }),
     viola: () => fiddle({ uy: 13, urx: 5, ury: 5, ly: 22, lrx: 6, lry: 6, top: 3, col: '#a85a26', dark: '#703814', bow: 26 }),
