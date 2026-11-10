@@ -293,8 +293,18 @@
       body.innerHTML = '<p>The story didn\'t load. Check your connection and open this page again.</p>';
     }
   }
+  // the menu bar: stays at the top of every screen past the home screen
+  const menu = document.createElement('nav');
+  menu.className = 'menu'; menu.setAttribute('aria-label', 'Site');
+  menu.innerHTML = `<a href="#" data-nav="home">Home</a><a href="#albums" data-nav="albums">Albums</a><span class="menu-sep" aria-hidden="true"></span>`
+    + window.PROJECTS.map(p => `<a href="#${p.id}" data-nav="${p.id}">${p.title}</a>`).join('');
+  document.body.prepend(menu);
+
   function route() {
     const id = location.hash.slice(1);
+    const here = sections.find(s => s.id === id);
+    const navId = here ? (here.dataset.album || here.id) : 'albums';
+    menu.querySelectorAll('a').forEach(a => a.dataset.nav === navId ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
     document.body.classList.toggle('gate', !id);
     shelf.hidden = sections.some(s => s.id === id);
     sections.forEach(s => { s.hidden = s.id !== id; });

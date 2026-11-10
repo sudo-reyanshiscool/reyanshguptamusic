@@ -244,3 +244,23 @@ body[data-album="landfall"] { --moss: #0b0e1c; --canopy: #202944; --lichen: #f0e
 .hero-text .logo { display: block; width: fit-content; margin-bottom: 1rem; }
 .hero-text .logo img { display: block; width: clamp(64px, 9vw, 96px); height: auto; image-rendering: pixelated; filter: drop-shadow(var(--px) var(--px) 0 #16261d); }
 body:not(.gate) .hero-text .logo img { width: 48px; }
+
+/* ---------- menu bar ---------- */
+.menu {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9;
+  display: flex; align-items: center; gap: .25rem;
+  padding: .4rem clamp(.5rem, 4vw, 2rem);
+  background: color-mix(in srgb, var(--moss) 82%, transparent);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  border-bottom: 2px solid var(--canopy);
+  font-family: var(--display); white-space: nowrap; overflow-x: auto;
+}
+body.gate .menu { display: none; }
+.menu a { color: var(--cream); text-decoration: none; padding: .45rem .8rem; }
+.menu a:hover { background: var(--canopy); }
+.menu a[aria-current] { color: var(--lantern); box-shadow: inset 0 calc(var(--px) * -1) 0 var(--lantern); }
+.menu a[data-nav="home"] { background: var(--lantern); color: var(--bark); margin-right: .25rem; }
+.menu a[data-nav="home"]:hover { background: #f8d68e; }
+.menu-sep { width: 2px; height: 1.25rem; background: var(--canopy); margin: 0 .5rem; flex: none; }
+body:not(.gate) .hero-text { top: 4.25rem; }
+body[data-album] .hero-text { padding-top: 4.25rem; }
